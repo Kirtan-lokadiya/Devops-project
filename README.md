@@ -6,6 +6,14 @@
 sudo apt install fortune-mod cowsay -y
 ```
 
+## Docker image notes
+
+- `bash`: the script uses a Bash shebang (`#!/usr/bin/env bash`).
+- `cowsay`: renders the quote as ASCII art.
+- `fortune-mod`: provides the `fortune` command for random quotes.
+- `netcat-openbsd`: provides `nc`, used to listen for HTTP requests.
+- `ca-certificates`: standard TLS trust store; good default even if not strictly required.
+
 ## How to use?
 
 1. Run `./wisecow.sh`
