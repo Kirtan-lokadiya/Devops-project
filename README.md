@@ -14,6 +14,12 @@ sudo apt install fortune-mod cowsay -y
 - `netcat-openbsd`: provides `nc`, used to listen for HTTP requests.
 - `ca-certificates`: standard TLS trust store; good default even if not strictly required.
 
+## Kubernetes notes
+
+- Deployment: tells Kubernetes to run the Wisecow container and keep it running.
+- Service: creates a stable address in the cluster and forwards port 80 to app port 4499.
+- Readiness probe: a small check (TCP to port 4499) so Kubernetes only sends traffic when the app is ready.
+
 ## How to use?
 
 1. Run `./wisecow.sh`
