@@ -41,7 +41,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       KUBE_CONFIG_B64: ${{ secrets.KUBE_CONFIG_B64 }}
     steps:
