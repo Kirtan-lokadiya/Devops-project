@@ -1,0 +1,7 @@
+# Local TLS artifacts (do not commit secrets)
+wisecow.key
+wisecow.crt
+*.key
+*.crt
+*.pem
+*.csr
