@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: wisecow
-          image: ghcr.io/Kirtan-lokadiya/wisecow:latest
+          image: ghcr.io/kirtan-lokadiya/wisecow:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 4499

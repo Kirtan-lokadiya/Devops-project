@@ -56,7 +56,7 @@ This is a local-only HTTPS demo for minikube when you don't have a public domain
 - Workflow file: `.github/workflows/ci-cd.yaml`
 - Builds and pushes image to GHCR: `ghcr.io/<owner>/wisecow`
 - Optional deploy: set `KUBE_CONFIG_B64` repo secret (base64 of kubeconfig)
-- For GHCR deploys, update `k8s/deployment-ghcr.yaml` with your GitHub username
+- GHCR requires lowercase image names; update `k8s/deployment-ghcr.yaml` and the workflow `IMAGE_NAME`
 
 
 
