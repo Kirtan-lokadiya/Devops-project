@@ -58,6 +58,38 @@ This is a local-only HTTPS demo for minikube when you don't have a public domain
 - Optional deploy: set `KUBE_CONFIG_B64` repo secret (base64 of kubeconfig)
 - GHCR requires lowercase image names; update `k8s/deployment-ghcr.yaml` and the workflow `IMAGE_NAME`
 
+## Problem Statement 2 scripts
+
+### System Health Monitoring (Bash)
+
+File: `scripts/system_health_monitor.sh`
+
+Run:
+```
+chmod +x scripts/system_health_monitor.sh
+./scripts/system_health_monitor.sh
+```
+
+Optional thresholds:
+```
+CPU_THRESHOLD=80 MEM_THRESHOLD=80 DISK_THRESHOLD=80 PROC_THRESHOLD=300 ./scripts/system_health_monitor.sh
+```
+
+### Log File Analyzer (Bash)
+
+File: `scripts/log_analyzer.sh`
+
+Run:
+```
+chmod +x scripts/log_analyzer.sh
+./scripts/log_analyzer.sh /path/to/access.log
+```
+
+Optional:
+```
+TOP_N=5 ./scripts/log_analyzer.sh /var/log/nginx/access.log
+```
+
 
 
 ## What to expect?
