@@ -51,6 +51,13 @@ This is a local-only HTTPS demo for minikube when you don't have a public domain
    - Then open `https://wisecow.local` (browser will warn because self-signed).
    - Or use curl: `curl -k --resolve wisecow.local:443:<minikube-ip> https://wisecow.local/`
 
+## CI/CD notes (GitHub Actions)
+
+- Workflow file: `.github/workflows/ci-cd.yaml`
+- Builds and pushes image to GHCR: `ghcr.io/<owner>/wisecow`
+- Optional deploy: set `KUBE_CONFIG_B64` repo secret (base64 of kubeconfig)
+- For GHCR deploys, update `k8s/deployment-ghcr.yaml` with your GitHub username
+
 ## How to use?
 
 1. Run `./wisecow.sh`
