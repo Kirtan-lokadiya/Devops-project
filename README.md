@@ -19,6 +19,37 @@ sudo apt install fortune-mod cowsay -y
 - Deployment: tells Kubernetes to run the Wisecow container and keep it running.
 - Service: creates a stable address in the cluster and forwards port 80 to app port 4499.
 - Readiness probe: a small check (TCP to port 4499) so Kubernetes only sends traffic when the app is ready.
+- Ingress: exposes the service outside the cluster and is used by cert-manager to issue TLS certs.
+
+## TLS with cert-manager (real-world setup)
+
+1. Install cert-manager and an Ingress controller (e.g., nginx) in your cluster.
+2. Edit `k8s/cluster-issuer.yaml` and set `CHANGE_ME_EMAIL`.
+3. Edit `k8s/ingress.yaml` and set `CHANGE_ME_DOMAIN` to your real DNS name.
+4. Apply manifests:
+   - `kubectl apply -f k8s/cluster-issuer.yaml`
+   - `kubectl apply -f k8s/deployment.yaml`
+   - `kubectl apply -f k8s/service.yaml`
+   - `kubectl apply -f k8s/ingress.yaml`
+5. cert-manager will create the `wisecow-tls` secret automatically after ACME validation.
+
+## Local TLS demo (self-signed)
+
+This is a local-only HTTPS demo for minikube when you don't have a public domain.
+
+1. Update `k8s/ingress.yaml` to use `wisecow.local` (already set).
+2. Create a self-signed cert and TLS secret:
+   - `openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout wisecow.key -out wisecow.crt -subj "/CN=wisecow.local" -addext "subjectAltName=DNS:wisecow.local"`
+   - `kubectl create secret tls wisecow-tls --cert=wisecow.crt --key=wisecow.key`
+3. Apply manifests:
+   - `kubectl apply -f k8s/deployment.yaml`
+   - `kubectl apply -f k8s/service.yaml`
+   - `kubectl apply -f k8s/ingress.yaml`
+4. Get minikube IP: `minikube ip`
+5. Access HTTPS locally:
+   - Add to `/etc/hosts`: `<minikube-ip> wisecow.local`
+   - Then open `https://wisecow.local` (browser will warn because self-signed).
+   - Or use curl: `curl -k --resolve wisecow.local:443:<minikube-ip> https://wisecow.local/`
 
 ## How to use?
 
