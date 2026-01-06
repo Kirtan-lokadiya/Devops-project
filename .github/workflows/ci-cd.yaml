@@ -42,20 +42,27 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ secrets.KUBE_CONFIG_B64 != '' }}
     steps:
+      - name: Skip deploy (no kubeconfig secret)
+        if: ${{ secrets.KUBE_CONFIG_B64 == '' }}
+        run: echo "KUBE_CONFIG_B64 is not set; skipping deploy."
+
       - name: Checkout
+        if: ${{ secrets.KUBE_CONFIG_B64 != '' }}
         uses: actions/checkout@v4
 
       - name: Set up kubectl
+        if: ${{ secrets.KUBE_CONFIG_B64 != '' }}
         uses: azure/setup-kubectl@v4
 
       - name: Configure kubeconfig
+        if: ${{ secrets.KUBE_CONFIG_B64 != '' }}
         run: |
           echo "${{ secrets.KUBE_CONFIG_B64 }}" | base64 -d > "$RUNNER_TEMP/kubeconfig"
           echo "KUBECONFIG=$RUNNER_TEMP/kubeconfig" >> "$GITHUB_ENV"
 
       - name: Deploy manifests
+        if: ${{ secrets.KUBE_CONFIG_B64 != '' }}
         run: |
           kubectl apply -f k8s/service.yaml
           kubectl apply -f k8s/ingress.yaml
