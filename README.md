@@ -58,6 +58,23 @@ This is a local-only HTTPS demo for minikube when you don't have a public domain
 - Optional deploy: set `KUBE_CONFIG_B64` repo secret (base64 of kubeconfig)
 - GHCR requires lowercase image names; update `k8s/deployment-ghcr.yaml` and the workflow `IMAGE_NAME`
 
+## KubeArmor (PS3 - optional)
+
+Files:
+- `k8s/kubearmor/namespace-default-posture.yaml`
+- `k8s/kubearmor/wisecow-zero-trust.yaml`
+
+Steps:
+1. Install KubeArmor in your cluster (see https://docs.kubearmor.io/kubearmor/).
+2. Apply namespace default posture (block by default):
+   - `kubectl apply -f k8s/kubearmor/namespace-default-posture.yaml`
+3. Apply the zero-trust allowlist policy:
+   - `kubectl apply -f k8s/kubearmor/wisecow-zero-trust.yaml`
+4. Trigger a violation (example):
+   - `kubectl exec -it deploy/wisecow -- /bin/sh`
+   - `/bin/sh` is not in the allowlist, so it should be blocked and logged.
+5. Capture a screenshot of the policy violation logs and commit it.
+
 ## Problem Statement 2 scripts
 
 ### System Health Monitoring (Bash)
