@@ -4,5 +4,6 @@ metadata:
   name: default
   annotations:
     kubearmor-file-posture: block
+    kubearmor-process-posture: block
     kubearmor-network-posture: block
     kubearmor-capabilities-posture: block

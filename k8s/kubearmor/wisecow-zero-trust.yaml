@@ -15,6 +15,7 @@ spec:
   process:
     matchPaths:
       - path: /app/wisecow.sh
+      - path: /usr/bin/env
       - path: /bin/bash
       - path: /bin/cat
       - path: /bin/mkfifo
@@ -33,19 +34,19 @@ spec:
       - path: /app/response
         readOnly: false
     matchDirectories:
-      - dir: /app
+      - dir: /app/
         recursive: false
         readOnly: false
-      - dir: /usr/share
+      - dir: /usr/share/
         recursive: true
         readOnly: true
-      - dir: /usr/games
+      - dir: /usr/games/
         recursive: true
         readOnly: true
-      - dir: /etc
+      - dir: /etc/
         recursive: true
         readOnly: true
-      - dir: /tmp
+      - dir: /tmp/
         recursive: true
         readOnly: false
   network:
